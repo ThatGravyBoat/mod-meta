@@ -15,6 +15,7 @@ public class CFPagesCreater {
     private static final Gson GSON = new Gson();
 
     public static String createNewProject(String id, String name) throws Exception {
+        System.out.println("Creating new project...");
         JsonObject body = new JsonObject();
         JsonObject buildConfig = new JsonObject();
         buildConfig.addProperty("destination_dir", "link_obfuscated_%s".formatted(id));

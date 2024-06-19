@@ -34,6 +34,7 @@ public class Main {
                 meta.curseforgeId() + "_" + meta.modrinthId(),
                 links
         );
+        System.out.println("Obfuscating links...");
         obfuscated.forEach((oldLink, newLink) -> {
             for (Element element : document.select("a[href=\"%s\"]".formatted(oldLink))) {
                 element.attr("href", newLink);

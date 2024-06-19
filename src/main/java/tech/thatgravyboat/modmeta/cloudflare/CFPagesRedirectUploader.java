@@ -32,6 +32,7 @@ public class CFPagesRedirectUploader {
     }
 
     public static void upload(String name, String redirectFile) throws Exception {
+        System.out.println("Uploading redirect file...");
         String boundary = new BigInteger(256, new SecureRandom()).toString();
         byte[] body = multipartBody(boundary, redirectFile).toByteArray();
         HttpRequest request = HttpRequest.newBuilder()

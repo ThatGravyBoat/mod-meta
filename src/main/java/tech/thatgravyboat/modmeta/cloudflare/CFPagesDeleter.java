@@ -25,6 +25,7 @@ public class CFPagesDeleter {
     }
 
     public static void deleteOldLinks(String id) throws Exception {
+        System.out.println("Deleting old pages...");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.cloudflare.com/client/v4/accounts/%s/pages/projects".formatted(
                         Main.CLOUDFLARE_ACCOUNT

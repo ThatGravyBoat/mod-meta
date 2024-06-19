@@ -15,11 +15,13 @@ public class CurseForgeUpdater {
 
     private static String fix(String html) {
         Document doc = Jsoup.parse(html);
-        doc.select("center").forEach(e -> e.tagName("div").attr("style", "text-align:center"));
+        doc.select("center").forEach(e -> e.tagName("div").attr("style", "text-align:center;"));
+        doc.select("blockquote").forEach(e -> e.tagName("div").attr("style", "padding-left:40px;"));
         return doc.body().html();
     }
 
     public static void update(String id, String html) throws Exception {
+        System.out.println("Updating CurseForge project...");
         JsonObject obj = new JsonObject();
         obj.addProperty("description", fix(html));
         obj.addProperty("descriptionType", 5);

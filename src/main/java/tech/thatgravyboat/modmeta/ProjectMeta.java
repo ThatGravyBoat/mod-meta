@@ -10,6 +10,7 @@ public record ProjectMeta(
 ) {
 
     public static ProjectMeta of(String html) {
+        System.out.println("Reading project meta...");
         Document doc = Jsoup.parse(html);
         String modrinthId = doc.select("meta[name=modrinth:id]").attr("content");
         String curseforgeId = doc.select("meta[name=curseforge:id]").attr("content");

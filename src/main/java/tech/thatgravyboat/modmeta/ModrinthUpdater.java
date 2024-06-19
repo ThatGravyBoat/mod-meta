@@ -12,6 +12,7 @@ public class ModrinthUpdater {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
     public static void update(String id, String html) throws Exception {
+        System.out.println("Updating Modrinth project...");
         JsonObject obj = new JsonObject();
         obj.addProperty("body", html);
         HttpRequest request = HttpRequest.newBuilder()

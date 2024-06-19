@@ -26,6 +26,7 @@ public class CFLinkObfuscator {
     }
 
     public static Map<String, String> obfuscate(String id, Set<String> links) throws Exception {
+        System.out.println("Gathering links for obfuscation...");
         if (links.isEmpty()) return Map.of();
         Map<String, String> obfuscated = links.stream().collect(Collectors.toMap(
                 Function.identity(), link -> randomId(6)
