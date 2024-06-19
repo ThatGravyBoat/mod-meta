@@ -17,14 +17,14 @@ public class CFPagesDeleter {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
     private static final Gson GSON = new Gson();
 
-    private static boolean isObfuscated(JsonElement element) {
+    private static boolean isObfuscated(String id, JsonElement element) {
         if (!(element instanceof JsonObject obj)) return false;
         JsonElement build = obj.get("build_config");
         if (!(build instanceof JsonObject buildObj)) return false;
-        return buildObj.get("destination_dir").getAsString().equals("link_obfuscated");
+        return buildObj.get("destination_dir").getAsString().equals("link_obfuscated_%s".formatted(id));
     }
 
-    public static void deleteOldLinks() throws Exception {
+    public static void deleteOldLinks(String id) throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.cloudflare.com/client/v4/accounts/%s/pages/projects".formatted(
                         Main.CLOUDFLARE_ACCOUNT
@@ -40,7 +40,7 @@ public class CFPagesDeleter {
         if (!object.has("result")) return;
         List<String> toDelete = new ArrayList<>();
         for (JsonElement result : object.getAsJsonArray("result")) {
-            if (isObfuscated(result)) {
+            if (isObfuscated(id, result)) {
                 toDelete.add(result.getAsJsonObject().get("name").getAsString());
             }
         }

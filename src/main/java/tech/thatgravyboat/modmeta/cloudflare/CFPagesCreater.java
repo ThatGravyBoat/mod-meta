@@ -14,10 +14,10 @@ public class CFPagesCreater {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
     private static final Gson GSON = new Gson();
 
-    public static String createNewProject(String name) throws Exception {
+    public static String createNewProject(String id, String name) throws Exception {
         JsonObject body = new JsonObject();
         JsonObject buildConfig = new JsonObject();
-        buildConfig.addProperty("destination_dir", "link_obfuscated");
+        buildConfig.addProperty("destination_dir", "link_obfuscated_%s".formatted(id));
         buildConfig.addProperty("build_command", "");
         buildConfig.addProperty("build_caching", true);
         buildConfig.addProperty("root_dir", "/");

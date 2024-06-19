@@ -25,15 +25,15 @@ public class CFLinkObfuscator {
         return _redirect.toString();
     }
 
-    public static Map<String, String> obfuscate(Set<String> links) throws Exception {
+    public static Map<String, String> obfuscate(String id, Set<String> links) throws Exception {
         if (links.isEmpty()) return Map.of();
         Map<String, String> obfuscated = links.stream().collect(Collectors.toMap(
                 Function.identity(), link -> randomId(6)
         ));
 
-        CFPagesDeleter.deleteOldLinks();
+        CFPagesDeleter.deleteOldLinks(id);
         String name = randomId(24);
-        String subdomain = CFPagesCreater.createNewProject(name);
+        String subdomain = CFPagesCreater.createNewProject(id, name);
         CFPagesRedirectUploader.upload(name, createRedirectFile(obfuscated));
 
         return obfuscated.entrySet().stream().collect(Collectors.toMap(

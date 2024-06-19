@@ -30,7 +30,10 @@ public class Main {
 
         Document document = Jsoup.parse(html);
         Set<String> links = document.select("a[obfuscate]").stream().map(e -> e.attr("href")).collect(Collectors.toSet());
-        Map<String, String> obfuscated = CFLinkObfuscator.obfuscate(links);
+        Map<String, String> obfuscated = CFLinkObfuscator.obfuscate(
+                meta.curseforgeId() + "_" + meta.modrinthId(),
+                links
+        );
         obfuscated.forEach((oldLink, newLink) -> {
             for (Element element : document.select("a[href=\"%s\"]".formatted(oldLink))) {
                 element.attr("href", newLink);
